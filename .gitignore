@@ -1,0 +1,6 @@
+private
+node_modules
+fe/build/
+.coverage
+env
+
