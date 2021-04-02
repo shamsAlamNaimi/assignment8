@@ -172,8 +172,8 @@ def login():
             access_token = encode_token(userid, "access")
             refresh_token = encode_token(userid, "refresh")
             print("access_token---->",access_token)
-            #deception=decode_token(access_token)
-            #print("deception-->",deception)
+            deception=decode_token(access_token)
+            print("deception-->",deception)
             response_object = {
                 "access_token": access_token,
                 "refresh_token": refresh_token,
@@ -183,7 +183,7 @@ def login():
             return jsonify((response_object, status.HTTP_200_OK))
     except Exception as e:
         print('exception:', e)
-        return jsonify(("Authentication is required and has failed!", status.HTTP_401_UNAUTHORIZED))
+        return jsonify((e, status.HTTP_401_UNAUTHORIZED))
 
 
 # Returns an encoded userid. Requires both tokens. If access token expired 
