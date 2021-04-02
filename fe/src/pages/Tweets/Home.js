@@ -12,7 +12,7 @@ const THome = () => {
     //const res = await fetch("http://localhost:5000/tweets-results");
     //const res = await fetch(`${process.env.BE_NETWORK}:${process.env.BE_PORT}/tweets-results`);
     //console.log(process.env.REACT_APP_API_SERVICE_URL);
-    const res = await fetch(`${process.env.REACT_APP_API_SERVICE_URL}/tweets-results`);
+    const res = await fetch(`/tweets-results`);
       const { results } = await res.json();
       console.log(results);
       setTweets([...results]);

@@ -82,6 +82,7 @@ def set_env_var():
 def get_env_var(varname):
     #return g.pop(varname, None)
     global g
+    #print("users",g[varname])
     return g[varname]
 
 def encode_token(user_id, token_type):
@@ -95,12 +96,14 @@ def encode_token(user_id, token_type):
         "iat": datetime.utcnow(),
         "sub": user_id,
     }
+    print("paylode----> ",payload)
     return jwt.encode(
         payload, get_env_var("secret_key"), algorithm="HS256"
     )
 
 def decode_token(token):
-    payload = jwt.decode(token, get_env_var("secret_key"))
+    print("secret_key",get_env_var("secret_key"))
+    payload = jwt.decode(token, get_env_var("secret_key"), algorithm=["HS256"])
     print("decode_token:", payload)
     return payload["sub"]
 
@@ -165,11 +168,13 @@ def login():
             # create access and refresh token for the user to save.
             # User needs to pass access token for all secured APIs.
             userid = get_env_var('userids')[get_env_var('users').index(user)]
+            #print("user id---->",userid)
             access_token = encode_token(userid, "access")
             refresh_token = encode_token(userid, "refresh")
+            print("access_token---->",access_token)
             response_object = {
-                "access_token": access_token.decode(),
-                "refresh_token": refresh_token.decode(),
+                "access_token": access_token,
+                "refresh_token": refresh_token,
             }
             #return response_object, 200
             #return response_object
@@ -405,7 +410,7 @@ def add_tweet():
     pic = request.json['pic']
 
     access_token = request.json['access-token']
-    print("access_token:", access_token)
+    print("access_token:--->",access_token)
     permission = verify_token(access_token)
     if not permission[0]: 
         print("tweet submission denied due to invalid token!")
