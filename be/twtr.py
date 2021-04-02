@@ -103,7 +103,7 @@ def encode_token(user_id, token_type):
 
 def decode_token(token):
     print("secret_key",get_env_var("secret_key"))
-    payload = jwt.decode(token, get_env_var("secret_key"), algorithm=["HS256"])
+    payload = jwt.decode(token, get_env_var("secret_key"), algorithms=["HS256"])
     print("decode_token:", payload)
     return payload["sub"]
 
@@ -172,6 +172,8 @@ def login():
             access_token = encode_token(userid, "access")
             refresh_token = encode_token(userid, "refresh")
             print("access_token---->",access_token)
+            #deception=decode_token(access_token)
+            #print("deception-->",deception)
             response_object = {
                 "access_token": access_token,
                 "refresh_token": refresh_token,
