@@ -111,7 +111,7 @@ def decode_token(token):
 ####################
 # Security Endpoints
 ####################
-@app.route("/doc")
+@app.route("/doc_t")
 def home(): 
     return """Welcome to online mongo/twitter testing ground!<br />
         <br />
